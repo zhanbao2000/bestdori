@@ -112,7 +112,7 @@ class Song(BaseModel):
     bpm: dict[DifficultyInt, list[BPM]]
 
 
-class Bands(BaseModel):
+class BandsAll(BaseModel):
     """https://bestdori.com/api/bands/all.1.json"""
 
     class BandName(BaseModel):
