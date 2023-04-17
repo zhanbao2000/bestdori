@@ -118,4 +118,39 @@ class BandsAll(BaseModel):
     class BandName(BaseModel):
         bandName: list[Optional[str]]
 
-    __root__: dict[Language, BandName]
+    __root__: dict[int, BandName]
+
+
+class EventsAll(BaseModel):
+    """https://bestdori.com/api/events/all.6.json"""
+
+    class Event(BaseModel):
+        class Attribute(BaseModel):
+            attribute: str
+            percent: int
+
+        class Character(BaseModel):
+            characterId: int
+            percent: int
+
+        eventType: str
+        eventName: list[Optional[str]]
+        bannerAssetBundleName: str
+        startAt: list[Optional[datetime.datetime]]
+        endAt: list[Optional[datetime.datetime]]
+        attributes: list[Attribute]
+        characters: list[Character]
+        rewardCards: list[int]
+
+    __root__: dict[int, Event]
+
+
+class EventTrack(BaseModel):
+    """https://bestdori.com/api/tracker/data?server=0&event=1&tier=1000"""
+
+    class Cutoff(BaseModel):
+        time: int
+        ep: int  # event point
+
+    result: bool
+    cutoffs: list[Optional[Cutoff]]
