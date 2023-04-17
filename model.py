@@ -52,10 +52,10 @@ class SongsAll(BaseModel):
         musicTitle: list[Optional[str]]
         publishedAt: list[Optional[datetime.datetime]]
         closedAt: list[Optional[datetime.datetime]]
-        difficulty: dict[Difficulty, int]
+        difficulty: dict[DifficultyInt, Difficulty]
         length: float
-        notes: dict[Difficulty, int]
-        bpm: dict[Difficulty, list[BPM]]
+        notes: dict[DifficultyInt, int]
+        bpm: dict[DifficultyInt, list[BPM]]
 
     __root__: dict[int, Song]
 
