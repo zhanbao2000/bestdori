@@ -91,6 +91,7 @@ class Song(BaseModel):
         scoreA: int  # 442800
         scoreS: int  # 664200
         scoreSS: int  # 885600
+        publishedAt: Optional[list[Optional[datetime.datetime]]]  # ["1632031200000", ...]
 
     bgmId: str  # "bgm359"
     bgmFile: str  # "359_hell_or_hell"
