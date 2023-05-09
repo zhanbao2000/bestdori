@@ -1,8 +1,8 @@
 import datetime
 from enum import Enum, IntEnum
-from typing import Optional
+from typing import Optional, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Tag(str, Enum):
@@ -155,3 +155,37 @@ class EventTrack(BaseModel):
 
     result: bool
     cutoffs: list[Optional[Cutoff]]
+
+
+class Stat(BaseModel):
+    levelLimit: Optional[int]
+    performance: int
+    technique: int
+    visual: int
+
+
+class Stats(BaseModel):
+    level_1: Stat = Field(None, alias='1')
+    level_20: Stat = Field(None, alias='20')
+    level_30: Stat = Field(None, alias='30')
+    level_50: Stat = Field(None, alias='50')
+    level_60: Stat = Field(None, alias='60')
+    episodes: Optional[list[Stat]]
+    training: Optional[Stat]
+
+
+class Card(BaseModel):
+    characterId: int
+    rarity: int
+    attribute: str
+    levelLimit: int
+    resourceSetName: str
+    prefix: list[Optional[str]]
+    releasedAt: list[Optional[str]]
+    skillId: int
+    type: str
+    stat: Stats
+
+
+class CardsAll(BaseModel):
+    __root__: dict[int, Card]
