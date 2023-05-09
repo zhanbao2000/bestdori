@@ -2,7 +2,7 @@ import datetime
 from enum import Enum, IntEnum
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 
 
 class Tag(str, Enum):
@@ -180,6 +180,9 @@ class Stats(BaseModel):
     episodes: Optional[list[Stat]]
     training: Optional[Stat]
 
+    class Config:
+        extra = Extra.forbid
+
 
 class Card(BaseModel):
     characterId: int
@@ -193,6 +196,21 @@ class Card(BaseModel):
     type: str
     stat: Stats
 
+    class Config:
+        extra = Extra.forbid
+
 
 class CardsAll(BaseModel):
     __root__: dict[int, Card]
+
+
+class Degree(BaseModel):
+    degreeType: list[Optional[str]]
+    iconImageName: list[Optional[str]]
+    baseImageName: list[Optional[str]]
+    rank: list[Optional[str]]
+    degreeName: list[Optional[str]]
+
+
+class DegreesAll(BaseModel):
+    __root__: dict[int, Degree]
