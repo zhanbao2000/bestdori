@@ -52,6 +52,10 @@ def md5(s: str) -> str:
     return hashlib.md5(s.encode('utf-8')).hexdigest().replace('-', '').lower()
 
 
+def get_band_id(character_id: int) -> int:
+    return (character_id - 1) // 5 + 1
+
+
 client = AsyncClient(
     proxies='http://127.0.0.1:8889',
     timeout=15,
