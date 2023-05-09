@@ -1,6 +1,6 @@
 import datetime
 from enum import Enum, IntEnum
-from typing import Optional, Union
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -9,6 +9,13 @@ class Tag(str, Enum):
     Normal = 'normal'
     Anime = 'anime'
     TieUp = 'tie_up'
+
+
+class Attribute(str, Enum):
+    Powerful = 'powerful'
+    Cool = 'cool'
+    Happy = 'happy'
+    Pure = 'pure'
 
 
 class DifficultyInt(IntEnum):
