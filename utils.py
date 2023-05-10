@@ -6,6 +6,8 @@ from typing import TypeVar, Optional
 from httpx import AsyncClient, AsyncHTTPTransport
 from pydantic import BaseModel, parse_obj_as
 
+from .model import Language
+
 T = TypeVar('T', bound=BaseModel)
 
 
@@ -63,3 +65,10 @@ def get_client(proxies: Optional[str] = None, timeout: float = 15, retries: int 
         transport=AsyncHTTPTransport(retries=retries) if retries else None,
         **kwargs
     )
+
+
+def get_region_prefix(region: Language) -> Optional[str]:
+    if region == Language.Japanese:
+        return 'jp'
+    elif region == Language.ChineseSimplified:
+        return 'cn'

@@ -1,9 +1,9 @@
-from .api import get_cards_all
 from io import BytesIO
 from typing import Literal
 
-from .model import Attribute
-from .utils import get_online
+from .api import get_cards_all
+from .model import Attribute, Language
+from .utils import get_online, get_region_prefix
 
 __all__ = [
     'get_item_effect_description', 'get_card_thumb',
@@ -51,7 +51,7 @@ def get_item_effect_description(item_id: int, item_level: int) -> str:
     return f'{scope}上升 {effect}%'
 
 
-async def get_card_thumb(card_id: int, is_after_training: bool) -> BytesIO:
+async def get_card_thumb(card_id: int, is_after_training: bool, region: Language) -> BytesIO:
     """Get card thumb by card id."""
     cards_all = await get_cards_all(is_cache=True)
     if card_id not in cards_all.__root__:
@@ -61,7 +61,7 @@ async def get_card_thumb(card_id: int, is_after_training: bool) -> BytesIO:
     card_res_set = card.resourceSetName
     card_rip_id = str(int(card_id / 50)).zfill(5)
     card_suffix = 'after_training' if is_after_training else 'normal'
-    url = f'https://bestdori.com/assets/jp/thumb/chara/card{card_rip_id}_rip/{card_res_set}_{card_suffix}.png'
+    url = f'https://bestdori.com/assets/{get_region_prefix(region)}/thumb/chara/card{card_rip_id}_rip/{card_res_set}_{card_suffix}.png'
 
     return BytesIO(await get_online(url))
 
@@ -90,12 +90,12 @@ async def get_card_star(is_after_training: bool) -> BytesIO:
     return BytesIO(await get_online('https://bestdori.com/res/icon/star_trained.png'))
 
 
-async def get_degree_file(filename: str) -> BytesIO:
+async def get_degree_file(filename: str, region: Language) -> BytesIO:
     """Get degree icon or background, filename without .png suffix."""
-    return BytesIO(await get_online(f'https://bestdori.com/assets/jp/thumb/degree_rip/{filename}.png'))
+    return BytesIO(await get_online(f'https://bestdori.com/assets/{get_region_prefix(region)}/thumb/degree_rip/{filename}.png'))
 
 
-async def get_profile_card_image(card_id: int, is_after_training: bool) -> BytesIO:
+async def get_profile_card_image(card_id: int, is_after_training: bool, region: Language) -> BytesIO:
     """Get card profile sized by card id."""
     cards_all = await get_cards_all(is_cache=True)
     if card_id not in cards_all.__root__:
@@ -104,6 +104,6 @@ async def get_profile_card_image(card_id: int, is_after_training: bool) -> Bytes
     card = cards_all.__root__[card_id]
     card_res_set = card.resourceSetName
     card_suffix = 'after_training' if is_after_training else 'normal'
-    url = f'https://bestdori.com/assets/jp/characters/resourceset/{card_res_set}_rip/trim_{card_suffix}.png'
+    url = f'https://bestdori.com/assets/{get_region_prefix(region)}/characters/resourceset/{card_res_set}_rip/trim_{card_suffix}.png'
 
     return BytesIO(await get_online(url))
