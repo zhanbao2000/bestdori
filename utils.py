@@ -40,7 +40,7 @@ async def get_online(url: str, is_cache: bool = True) -> bytes:
         if cm := CacheManager(url_hash).get():
             return cm
 
-    async with client:
+    async with get_client() as client:
         resp = await client.get(url)
         resp.raise_for_status()
         content = resp.content
@@ -56,8 +56,10 @@ def get_band_id(character_id: int) -> int:
     return (character_id - 1) // 5 + 1
 
 
-client = AsyncClient(
-    proxies='http://127.0.0.1:8889',
-    timeout=15,
-    transport=AsyncHTTPTransport(retries=3)
-)
+def get_client(proxies: Optional[str] = None, timeout: float = 15, retries: int = 0, **kwargs) -> AsyncClient:
+    return AsyncClient(
+        proxies=proxies,
+        timeout=timeout,
+        transport=AsyncHTTPTransport(retries=retries) if retries else None,
+        **kwargs
+    )
