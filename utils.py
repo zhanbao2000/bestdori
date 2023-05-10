@@ -55,7 +55,15 @@ def md5(s: str) -> str:
 
 
 def get_band_id(character_id: int) -> int:
-    return (character_id - 1) // 5 + 1
+    return {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+        6: 21,
+        7: 18,
+    }[(character_id - 1) // 5 + 1]
 
 
 def get_client(proxies: Optional[str] = None, timeout: float = 15, retries: int = 0, **kwargs) -> AsyncClient:
