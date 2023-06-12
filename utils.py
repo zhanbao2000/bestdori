@@ -9,6 +9,7 @@ from pydantic import BaseModel, parse_obj_as
 from .model import Language
 
 T = TypeVar('T', bound=BaseModel)
+VT = TypeVar('VT')
 
 
 class CacheManager:
@@ -80,3 +81,13 @@ def get_region_prefix(region: Language) -> Optional[str]:
         return 'jp'
     elif region == Language.ChineseSimplified:
         return 'cn'
+
+
+def get_valid_value_from_list(value_list: list[VT]) -> VT:
+    return (
+            value_list[Language.Japanese] or
+            value_list[Language.ChineseSimplified] or
+            value_list[Language.ChineseTraditional] or
+            value_list[Language.English] or
+            value_list[Language.Korean]
+    )
