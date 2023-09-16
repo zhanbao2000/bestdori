@@ -11,7 +11,7 @@ __all__ = [
     'get_card_star', 'get_degree_file', 'get_profile_card_image'
 ]
 
-# 道具效果（百分比），例如 ITEM_EFFECT_BAND[7] == 2.5 表示 7  级乐器提升 5% 综合力
+# 道具效果（百分比），例如 ITEM_EFFECT_BAND[7] == 2.5 表示 7 级乐器提升 5% 综合力
 ITEM_EFFECT_BAND = [2, 2, 2.5, 3, 3.5, 4, 4.5, 5]
 ITEM_EFFECT_EVERYONE = [1, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5]
 ITEM_EFFECT_MAGAZINE = [8, 8, 10, 12, 14, 16, 18, 20]
@@ -28,6 +28,7 @@ ITEM_SCOPE = {
     **dict.fromkeys((5, 10, 15, 20, 25, 30, 35), ('Hello，Happy World！ 全员综合力', ITEM_EFFECT_BAND)),
     **dict.fromkeys((83, 84, 85, 86, 87, 88, 89), ('Morfonica 全员综合力', ITEM_EFFECT_BAND)),
     **dict.fromkeys((90, 91, 92, 93, 94, 95, 96), ('RAISE A SUILEN 全员综合力', ITEM_EFFECT_BAND)),
+    **dict.fromkeys((97, 98, 99, 100, 101, 102, 103), ('MyGO!!!!! 全员综合力', ITEM_EFFECT_BAND)),
     **dict.fromkeys((73, 74, 75, 76, 77, 78, 79), ('所有成员的综合力', ITEM_EFFECT_EVERYONE)),
     # 四色
     66: ('所有 Cool 属性成员的综合力', ITEM_EFFECT_PLAZA),

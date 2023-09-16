@@ -64,6 +64,7 @@ def get_band_id(character_id: int) -> int:
         5: 5,
         6: 21,
         7: 18,
+        8: 45,
     }[(character_id - 1) // 5 + 1]
 
 
